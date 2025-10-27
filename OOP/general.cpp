@@ -32,10 +32,12 @@ int main()
 		else p[i] = j;
 	}
 
-	for(int z = 0; z<n-1;z++){
-		std::cout<<p[z];
-	}
-		std::cout<<std::endl;
+	// for(int z = 0; z<n-1;z++){
+	// 	std::cout<<p[z];
+	// }
+	// 	std::cout<<std::endl;
+
+	std::chrono::high_resolution_clock::time_point timeStart = std::chrono::high_resolution_clock::now();
 
 	do
 	{
@@ -51,7 +53,14 @@ int main()
 		//std::cout << "    min cost = " << cost_min;
 	} while (Permutation(p, n - 1));
 
-	std::cout << "\nmin cost = " << cost_min;
+
+	std::cout << "\nmin cost = " << cost_min<<std::endl;
+	
+	std::chrono::high_resolution_clock::time_point timeEnd = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = timeEnd - timeStart;
+	std::cout << "time: " << duration.count() << std::endl;
+	
+	
 	for (i = 0; i < n; i++) delete[] matr[i];
 	delete[] matr; delete[] p;
 
