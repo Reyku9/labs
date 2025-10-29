@@ -62,12 +62,30 @@ bool Permutation(int* p, int n) //получение следующей пере
 	return true;
 }
 
-void OutputMasPtr(int* a, int n)
+void OutputPerm(int* a, int n)
 {
-	for (int* p = a; p < a + n; p++) printf("%4d", *p);
+	for (int* p = a; p < a + n; p++) std::cout<<"\t"<<*p;
+}
+
+void CopyArr(int* a, int* b, int n)
+{
+	for(int i = 0; i<n; i++) b[i] = a[i];
+}
+
+void FindMinEl(int** matr, int n, int* str, int* col_min)
+{
+	int min = 100000;
+	for (int col = 0; col < n; col++)
+		if (matr[*str][col] < min && matr[*str][col] != 0) {*col_min = col; min = matr[*str][col];}
 }
 
 
+int Find(int* a, int n, int B)
+{
+	for (int i = 0; i < n; i++)
+		if (a[i] == B) return i;
+	return -1;
+}
 
 
 
