@@ -13,69 +13,85 @@ int main()
 
 	std::cout << "num cities: ";
 	std::cin >> n;
-
-	std::cout << "start towm: ";
-	std::cin >> start;
-
+	
 	matr = new int* [n];
 	for (i = 0; i < n; i++) matr[i] = new int[n]();
-
+	
 	RandMatrAnyIntD(matr, n, n);
 	std::cout << "Your cost matrix:\n";
 	OutputMatrIntD(matr,n, n);
-
-	int* p;
-	p = new int[n-1];
-
-	for (i = 0; i < n-1; i++, j++)
-	{	
-		if (j == start) p[i] = ++j;
-		else p[i] = j;
-	}
+	
+	
+		std::cout << "start towm: ";
+		std::cin >> start;
 
 
-
-
-	int* bestP;
-	bestP = new int[n - 1];
-
-	int* worstP;
-	worstP = new int[n - 1];
-
-
-	//установка отсчета
-	std::chrono::high_resolution_clock::time_point timeStart = std::chrono::high_resolution_clock::now();
-
-
-	//цикл подсчета стоимости
 	do
 	{
-		cost = 0;
-		cost += matr[start][p[0]];
-		for (i = 0; i < n - 2; i++) cost += matr[p[i]][p[i+1]]; //3	
-		cost += matr[p[i]][start];
+		int* p;
+		p = new int[n-1];
 		
-		
-		if (cost < cost_min) { cost_min = cost; CopyArr(p, bestP, n-1); }
-		if (cost > cost_max) {cost_max = cost; CopyArr(p, worstP, n-1); }
-		
-		//std::cout << "\np = "; OutputPerm(p, n - 1);
-		//std::cout << "    min cost = " << cost_min;
-	} while (Permutation(p, n - 1));
+		for (i = 0; i < n-1; i++, j++)
+		{	
+			if (j == start) p[i] = ++j;
+			else p[i] = j;
+		}
 
 
 
-	std::cout << "\nmin cost = " << cost_min<<std::endl;
-	std::cout << "Best Permutation: " << "[" << start; OutputPerm(bestP, n - 1); std::cout<<"\t"<< start << "]" << std::endl;
-	std::cout << "max cost = " << cost_max<<std::endl;
-	std::cout << "Worst Permutation: " << "[" << start; OutputPerm(worstP, n - 1); std::cout<<"\t"<< start << "]" << std::endl;
+
+		int* bestP;
+		bestP = new int[n - 1];
+
+		int* worstP;
+		worstP = new int[n - 1];
+
+
+		//установка отсчета
+		std::chrono::high_resolution_clock::time_point timeStart = std::chrono::high_resolution_clock::now();
+
+
+		//цикл подсчета стоимости
+		do
+		{
+			cost = 0;
+			cost += matr[start][p[0]];
+			for (i = 0; i < n - 2; i++) cost += matr[p[i]][p[i+1]]; //3	
+			cost += matr[p[i]][start];
+			
+			
+			if (cost < cost_min) { cost_min = cost; CopyArr(p, bestP, n-1); }
+			if (cost > cost_max) {cost_max = cost; CopyArr(p, worstP, n-1); }
+			
+			//std::cout << "\np = "; OutputPerm(p, n - 1);
+			//std::cout << "    min cost = " << cost_min;
+		} while (Permutation(p, n - 1));
+
+
+		std::cout<<"Result with start city: "<<start<<std::endl;
+		std::cout << "\nmin cost = " << cost_min<<std::endl;
+		std::cout << "Best Permutation: " << "[" << start; OutputPerm(bestP, n - 1); std::cout<<"\t"<< start << "]" << std::endl;
+		std::cout << "max cost = " << cost_max<<std::endl;
+		std::cout << "Worst Permutation: " << "[" << start; OutputPerm(worstP, n - 1); std::cout<<"\t"<< start << "]" << std::endl;
 	
 
-	//вывод времени
-	std::chrono::high_resolution_clock::time_point timeEnd = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> duration = timeEnd - timeStart;
-	std::cout << "time: " << duration.count() << std::endl;
-
+		//вывод времени
+		std::chrono::high_resolution_clock::time_point timeEnd = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> duration = timeEnd - timeStart;
+		std::cout << "time: " << duration.count() << std::endl;
+		
+		delete[] p; delete[] bestP; delete[] worstP;
+		char a;
+		std::cout<<"try with another start town?(y/n)"<<std::endl;
+		std::cin>>a;
+		if(a != 'y'){
+			start = -1;
+		}else{
+			std::cout << "start towm: ";
+			std::cin >> start;
+		}
+		
+	}while(start != -1);
 
 	
 	//3 метод
@@ -85,9 +101,9 @@ int main()
 	NewPerm = new int[n + 1];
 	for (i = 0; i < n + 1; i++) NewPerm[i] = -1;
 	NewPerm[k] = start; k++;
-	for(int z = 0; z<n+1;z++){
-			std::cout<<NewPerm[z]<<" ";
-	}
+	// for(int z = 0; z<n+1;z++){
+	// 		std::cout<<NewPerm[z]<<" ";
+	// }
 	std::cout<<"\n";	
 
 	std::chrono::high_resolution_clock::time_point timeStartNew = std::chrono::high_resolution_clock::now();
@@ -138,6 +154,6 @@ int main()
 
 	
 	for (i = 0; i < n; i++) delete[] matr[i];
-	delete[] matr; delete[] p; delete[] bestP; delete[] worstP; delete[] NewPerm;
+	delete[] matr; delete[] NewPerm;
 
 }
