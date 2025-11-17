@@ -29,10 +29,4 @@ public:
     bool isHoliday() const;
     // проверить, совпадают ли две даты
     bool operator==(const Data& other) const;
-    //нахождение количества дней, оставшихся до нового года
-    int numsDayUntilNewYear() const;
-    //вычислить, сколько дней между двумя датами
-    int operator-(const Data& other) const;
-    // проверить попадание в заданный временной промежуток.
-    bool inInterval(const Data& a, const Data& b) const;
 };
