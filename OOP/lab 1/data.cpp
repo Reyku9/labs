@@ -142,3 +142,62 @@ bool Data::operator==(const Data& other) const
 {
     return (day_ == other.day_) && (month_ == other.month_) && (year_ == other.year_);
 }
+//нахождение количества дней, оставшихся до нового года
+int Data::numsDayUntilNewYear() const
+{
+    int cnt = daySinceStartYear();
+    cnt = 365 - cnt;
+    if(isLeapYear()) cnt++;
+    return cnt;
+}
+//вычислить, сколько дней между двумя датами
+int Data::operator-(const Data& other) const
+{
+    int day, month, year;
+    day = month = year = 0;
+    
+    day = day_ - other.day_;
+    if(day < 0) day *=-1;
+    
+    month = month_ - other.month_;
+    if(month < 0) month *=-1;
+    
+    
+    int year1 = year_;
+    year = year_ - other.year_;
+    if(year < 0) { year *= -1; year1 = other.year_-1;}
+    for(int j = 0; j < year; j++)
+    {
+        if(year1 % 4 == 0 && (year1 % 100 != 0 || (year1 % 100 == 0 && year1%400 == 0))) day++;
+        year1--;
+        
+    }
+
+    year *=365;
+    int arr[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    for(int i = 0;i<month;i++)
+    {
+        day += arr[i];
+    }
+    
+    if(year+day<0) return (year+day)*-1;
+    return year+day;
+}
+// проверить попадание в заданный временной промежуток.
+bool Data::inInterval(const Data& int1, const Data& int2) const
+{
+    
+    if(int1.year_ != int2.year_ && year_>=int1.year_&&year_<=int2.year_) return true;
+    else if(int1.year_==int2.year_ && year_ == int1.year_)
+    {
+        if(month_>=int1.month_&&month_<=int2.month_)
+        {
+            if(day_>=int1.day_ && day_<=int2.day_)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}

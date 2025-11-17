@@ -61,4 +61,34 @@ int main()
     x6.input(); x6.output();
     if(x5==x6) std::cout<<"Даты равны"<<std::endl;
     else std::cout<<"Даты не равны"<<std::endl;
+
+    //9) нахождение количества дней, оставшихся до нового года
+    std::cout<<"Нахождение количества дней, оставшихся до нового года"<<std::endl;
+    Data x7;
+    x7.input(); x7.output();
+    int b3 = x7.numsDayUntilNewYear();
+    std::cout<<"Дней до нового года - "<<b3;
+
+
+
+    //10) вычислить, сколько дней между двумя датами
+    Data x8, x9;
+    std::cout<<"Введите даты для вычисления дней мемжду ними"<<std::endl;
+    x8.input(); x8.output();
+    x9.input(); x9.output();
+    int b4 = x8 - x9;
+    std::cout<<"дней между датами - "<<b4<<std::endl;
+
+
+    //11)проверить попадание в заданный временной промежуток
+    std::cout<<"Проверить попадание в заданный временной промежуток"<<std::endl;
+    Data x10, int1, int2;
+    x10.input(); x10.output();
+    std::cout<<"Введите две даты интервала"<<std::endl;
+    int1.input(); int1.output();
+    int2.input(); int2.output();
+    if(x10.inInterval(int1, int2)) std::cout<<"Входит в промежуток"<<std::endl;
+    else std::cout<<"Не входит в промежуток"<<std::endl;
+
+    return 0;
 }
