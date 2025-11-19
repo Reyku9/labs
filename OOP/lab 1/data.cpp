@@ -201,3 +201,18 @@ bool Data::inInterval(const Data& int1, const Data& int2) const
     }
     return false;
 }
+
+void Data::compare(const Data& current) const
+{
+    if((year_ - current.year_)<0) std::cout<<"Будущее"<<std::endl;
+    else if((year_ - current.year_)>0) std::cout<<"Прошлое"<<std::endl;
+    else{
+        if((month_-current.month_)<0) std::cout<<"Будущее"<<std::endl;
+        else if((month_ - current.month_)>0) std::cout<<"Прошлое"<<std::endl;
+        else{
+            if((day_-current.day_)<0) std::cout<<"Будущее"<<std::endl;
+            else if((day_ - current.day_)>0) std::cout<<"Прошлое"<<std::endl;
+            else std::cout<<"Настоящее"<<std::endl;
+        }
+    }
+}

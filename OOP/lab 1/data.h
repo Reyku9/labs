@@ -35,4 +35,6 @@ public:
     int operator-(const Data& other) const;
     // проверить попадание в заданный временной промежуток.
     bool inInterval(const Data& a, const Data& b) const;
+    //сравнить дату с текущей датой (прошлое или будущее);
+    void compare(const Data& current) const;
 };

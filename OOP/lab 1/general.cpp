@@ -90,5 +90,10 @@ int main()
     if(x10.inInterval(int1, int2)) std::cout<<"Входит в промежуток"<<std::endl;
     else std::cout<<"Не входит в промежуток"<<std::endl;
 
+    //12) сравнить дату с текущей датой (прошлое или будущее);
+    Data x11, x12;
+    x11.input(); x11.output();
+    x12.input(); x12.output();
+    x11.compare(x12);
     return 0;
 }
