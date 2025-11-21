@@ -1,7 +1,6 @@
 #pragma once 
 
 #include <iostream>
-
 class Data 
 {
     int day_, month_, year_;
@@ -37,4 +36,10 @@ public:
     bool inInterval(const Data& a, const Data& b) const;
     //сравнить дату с текущей датой (прошлое или будущее);
     void compare(const Data& current) const;
+
+    Data operator+(int a);
+
+    friend std::ostream& operator<<(std::ostream &r, Data &a);
+
+    friend std::istream& operator>>(std::istream &r, Data &a);
 };

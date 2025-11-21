@@ -95,5 +95,13 @@ int main()
     x11.input(); x11.output();
     x12.input(); x12.output();
     x11.compare(x12);
+    
+    //Реализация +<int>, >>, <<
+    Data date1(1,1,2000);
+    std::cin>>date1;
+    Data date2 = date1 + 5;
+    std::cout<<date2;
+    
+
     return 0;
 }

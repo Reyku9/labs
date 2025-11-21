@@ -1,6 +1,7 @@
 #include <iostream>
 #include "data.h"
 
+
 //конструкторы 
 Data::Data() : day_(1), month_(1), year_(2000) {}
 Data::Data(int day, int month, int year) : day_(day), month_(month), year_(year) 
@@ -113,7 +114,7 @@ int Data::daySinceStartYear() const
         cnt += arr[i];
     }
     cnt += day_;
-    if(isLeapYear()) cnt++;
+    if(isLeapYear() && (month_ > 2 || (month_ == 2 && day_>28))) cnt++;
     return cnt;
 }
 // определить, является ли текущая дата праздничным днем
@@ -215,4 +216,44 @@ void Data::compare(const Data& current) const
             else std::cout<<"Настоящее"<<std::endl;
         }
     }
+}
+
+
+Data Data::operator+(int a)
+{
+    Data date1(day_+a,month_,year_);
+    return date1;
+}
+
+std::ostream& operator<<(std::ostream &r, Data &a)
+{
+    r<<a.day_<<'.'<<a.month_<<'.'<<a.year_;
+    return r;
+}
+
+std::istream& operator>>(std::istream &r, Data &a)
+{
+    int d, m, y;
+    std::cout<<"Введите день(x), месяц(x), год(xxxx): ";
+    if(r>>d>>m>>y)
+    {
+        a.day_ = d; a.month_ = m; a.year_ = y;
+    }
+    if(a.day_>31 || (a.day_>29 && a.month_ == 2) || a.day_ < 1)
+    {
+        std::cout<<"Ошибка ввода дня, значение изменено на стандартное - 28"<<std::endl;
+        a.day_ = 28;
+    }
+    if(a.month_ > 12 || a.month_ < 1)
+    {
+        std::cout<<"Ошибка ввода месяца, значение изменено на стандартное - 12"<<std::endl;
+        a.month_ = 12;
+    }
+    if(a.year_ > 9999 || a.year_ < 1000)
+    {
+        std::cout<<"Ошибка ввода года, значение изменено на стандартное - 2000"<<std::endl;
+        a.year_ = 2000;
+    }
+
+    return r;
 }
